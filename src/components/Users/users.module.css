@@ -1,0 +1,23 @@
+.users {
+    display: grid;
+    grid-template-areas:
+    'g g';
+    grid-auto-columns: 6fr 6fr;
+
+}
+
+.pageNumber {
+    padding-left: 10px;
+
+}
+
+.userPhoto {
+    width: 100px;
+    height: 100px;
+}
+
+.preloader {
+    text-align: center;
+    position: relative;
+    top: 300px;
+}
