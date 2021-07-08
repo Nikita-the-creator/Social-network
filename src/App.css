@@ -1,5 +1,8 @@
-.main{
-    background-image: url("woodCoffee.jpg");
+.main {
+    /*background-image: url("woodCoffee.jpg");*/
+    background-image: url("background-image.jpg") ;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .app-wrapper {
@@ -16,6 +19,6 @@
 
 .app-wrapper-content {
     grid-area: c;
-    background: #6C5E53;
+    background-color: #09333D;
 
 }

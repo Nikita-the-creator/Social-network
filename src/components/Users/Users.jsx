@@ -4,13 +4,15 @@ import defaultAvatar from '../../assets/images/defaultAvatar.png'
 import { NavLink } from "react-router-dom";
 import Paginator from "../common/Paginator/Paginator";
 
-const Users = ({ totalUsersCount, pageSize, users, followingInProcess,
-                   follow, unfollow, onPageChanged, currentPage }) => {
+const Users = ({
+                   totalUsersCount, pageSize, users, followingInProcess,
+                   follow, unfollow, onPageChanged, currentPage
+               }) => {
     return (
         <div className={styles.users}>
             {
                 users.map(u => <div key={u.id}>
-                    <span>
+                    <div>
                         <NavLink to={'/profile/' + u.id}>
                             <div>
                                 <img src={u.photos.small != null ? u.photos.small : defaultAvatar} alt=""
@@ -27,21 +29,18 @@ const Users = ({ totalUsersCount, pageSize, users, followingInProcess,
                                 }}>Follow</button>
                             }
                         </div>
-                    </span>
-                    <span>
+                    </div>
+                    <div>
                         <div>{u.name}</div>
-                        <div>{u.status}</div>
-                    </span>
-                    <span>
-                        <div>u.location.country</div>
-                        <div>u.location.city</div>
-                    </span>
+                        <div>{!u.status ? null :`Status: ${u.status}`}</div>
+                    </div>
+
                 </div>)
             }
-            <div>
-                <Paginator totalUsersCount={totalUsersCount} pageSize={pageSize}
-                           currentPage={currentPage} onPageChanged={onPageChanged}/>
-            </div>
+
+            <Paginator totalUsersCount={totalUsersCount} pageSize={pageSize}
+                       currentPage={currentPage} onPageChanged={onPageChanged}/>
+
         </div>
     )
 }

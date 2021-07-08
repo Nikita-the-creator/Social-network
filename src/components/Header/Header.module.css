@@ -1,13 +1,38 @@
-.header{
-    grid-area: h ;
-    background-color: #70452C;
+.header {
+    grid-area: h;
+    background-color: darkslategrey;
+    display: flex;
+    justify-content: space-between;
 }
 
-.header img{
+.header img {
     width: 79px;
+    padding-top: 3px;
 }
 
 .loginBlock {
-    float: right;
+    display: flex;
+
+    padding-top: 4px;
+    padding-right: 10px;
 }
 
+.header .headerPhoto {
+    width: 30px;
+    height: 30px;
+    padding-top: 13px;
+    padding-right: 10px;
+}
+
+.header .loginHeader {
+    padding-left: 10px;
+    padding-bottom: 10px;
+}
+
+.header .loginBlock .loginElem {
+    display: flex;
+}
+
+.header .loginBlock .loginElem span {
+    padding-top: 16px;
+}

@@ -1,4 +1,4 @@
-import React, { lazy,Suspense } from "react";
+import React, { lazy, Suspense } from "react";
 import './App.css';
 import Nav from "./components/Nav/Nav";
 import News from "./components/News/News";
@@ -14,6 +14,9 @@ import { connect } from "react-redux";
 import { initializeApp } from "./components/Redux/app-reducer";
 import Preloader from "./components/common/preloader/Preloader";
 import { compose } from "redux";
+import {Redirect} from "react-router-dom";
+
+
 
 const UsersContainer = lazy(() => import('./components/Users/UsersContainer'))
 
@@ -33,20 +36,22 @@ class App extends React.Component {
                     <HeaderContainer/>
                     <Nav/>
                     <div className='app-wrapper-content'>
-                        <Route path='/dialogs'
-                               render={() => <DialogsContainer/>}/>
-                        <Route path='/profile/:userId?'
-                               render={() => <ProfileContainer/>}/>
-                        <Route path='/news' component={News}/>
-                        <Suspense fallback={<div>...loading</div>}>
-                            <Route path='/users'
-                                   render={() => <UsersContainer/>}/>
-                        </Suspense>
-                        <Route path='/music' component={Music}/>
-                        <Route path='/settings' component={Settings}/>
-                        <Route path='/friends' component={Friends}/>
-                        <Route path='/login'
-                               render={() => <LoginContainer/>}/>
+
+                            <Route path='/' exact><Redirect to='/profile'/></Route>
+                            <Route path='/dialogs'
+                                   render={() => <DialogsContainer/>}/>
+                            <Route path='/profile/:userId?'
+                                   render={() => <ProfileContainer/>}/>
+                            <Route path='/news' component={News}/>
+                            <Suspense fallback={<div>...loading</div>}>
+                                <Route path='/users'
+                                       render={() => <UsersContainer/>}/>
+                            </Suspense>
+                            <Route path='/music' component={Music}/>
+                            <Route path='/settings' component={Settings}/>
+                            <Route path='/friends' component={Friends}/>
+                            <Route path='/login'
+                                   render={() => <LoginContainer/>}/>
 
                     </div>
                 </div>

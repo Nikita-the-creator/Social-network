@@ -2,13 +2,15 @@ import { authAPI, usersApi } from "../api";
 import defaultAvatar from '../../assets/images/defaultAvatar.png'
 
 const SET_USER_DATA = 'SET_USER_DATA'
+const GET_CAPTCHA_URL_SUCCESS = 'GET_CAPTCHA_URL_SUCCESS'
 
 let initialState = {
     userId: null,
     email: null,
     login: null,
     isAuth: false,
-    defaultAvatar: { defaultAvatar }
+    defaultAvatar: { defaultAvatar },
+    captcha: null
 }
 
 const authReducer = (state = initialState, action) => {
@@ -16,7 +18,13 @@ const authReducer = (state = initialState, action) => {
         case SET_USER_DATA: {
             return {
                 ...state,
-                ...action.data,
+                ...action.data
+            }
+        }
+        case GET_CAPTCHA_URL_SUCCESS:{
+            return {
+                ...state,
+                ...action.payload
             }
         }
         default:
@@ -24,21 +32,31 @@ const authReducer = (state = initialState, action) => {
     }
 }
 
-export let setAuthUserData = (userId, email, login, isAuth) => ({
+export const setAuthUserData = (userId, email, login, isAuth) => ({
     type: SET_USER_DATA,
     data: { userId, email, login, isAuth }
 })
+export const getCaptchaSuccess = (captcha) => ({
+    type: GET_CAPTCHA_URL_SUCCESS,
+    payload: {captcha}
+})
 
 export const authMeThunkCreator = () => async (dispatch) => {
-    let response = await usersApi.authMe()
+    const response = await usersApi.authMe()
     if (response.data.resultCode === 0) {
-        let { id, email, login } = response.data.data;
-        dispatch(setAuthUserData(id, email, login, true))
+        const { id, email, login, captcha } = response.data.data;
+        dispatch(setAuthUserData(id, email, login, true,captcha))
     }
 }
 
+export const getCaptchaUrl = () => async (dispatch) => {
+    const response = await authAPI.captchaUrl()
+    const captchaUrl = response.data.url
+    dispatch(getCaptchaSuccess(captchaUrl))
+}
+
 export const logout = () => async (dispatch) => {
-    let response = await authAPI.logout()
+    const response = await authAPI.logout()
     if (response.data.resultCode === 0) {
         dispatch(setAuthUserData(null, null, null, false))
     }

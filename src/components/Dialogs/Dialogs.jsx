@@ -7,11 +7,11 @@ import { Field, Form, Formik } from "formik";
 const Dialogs = ({ dialogsPage,addMessage }) => {
 
     let dialogsElements = dialogsPage.dialogsData.map((dialog) => {
-        return <DialogItem name={dialog.name} id={dialog.id}/>
+        return <DialogItem key={dialog.id} name={dialog.name} id={dialog.id}/>
     })
 
     let messageElements = dialogsPage.messagesData.map((message) => {
-        return <Message message={message.message} id={message.id}/>
+        return <Message key={message.id} message={message.message} id={message.id}/>
     })
 
     let onMessageAdd = (newMessageBody) => {

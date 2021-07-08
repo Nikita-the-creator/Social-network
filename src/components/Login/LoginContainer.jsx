@@ -1,8 +1,9 @@
 import React from 'react'
 import LoginForm from "./LoginForm";
 import { connect } from "react-redux";
-import { authMeThunkCreator, } from "../Redux/auth-reducer";
+import { authMeThunkCreator, getCaptchaUrl, } from "../Redux/auth-reducer";
 import { Redirect } from "react-router-dom";
+import s from './LoginContainer.module.css'
 
 class LoginContainer extends React.Component {
 
@@ -11,9 +12,11 @@ class LoginContainer extends React.Component {
             return <Redirect to={'/profile'}/>
         }
         return (
-            <div>
+            <div className={s.loginContainer}>
                 <h1>Login</h1>
-                <LoginForm authMeThunkCreator={this.props.authMeThunkCreator}/>
+                <LoginForm captchaUrl={this.props.captchaUrl}
+                           authMeThunkCreator={this.props.authMeThunkCreator}
+                           getCaptchaUrl={this.props.getCaptchaUrl}/>
             </div>
         )
     }
@@ -21,8 +24,9 @@ class LoginContainer extends React.Component {
 
 let mapStateToProps = (state) => {
     return {
-        isAuth: state.auth.isAuth
+        isAuth: state.auth.isAuth,
+        captchaUrl: state.auth.captcha
     }
 }
 
-export default connect(mapStateToProps, { authMeThunkCreator })(LoginContainer);
+export default connect(mapStateToProps, { authMeThunkCreator , getCaptchaUrl })(LoginContainer);

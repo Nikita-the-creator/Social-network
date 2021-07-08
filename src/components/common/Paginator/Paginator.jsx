@@ -6,11 +6,8 @@ const Paginator = ({ totalUsersCount, pageSize, onPageChanged, currentPage, port
     let pagesCount = Math.ceil(totalUsersCount / pageSize);
     let pages = []
     for (let i = 1; i <= pagesCount; i++) {
-        if (i < 30) {
-            console.log('error')
-        }
-        pages.push(i);
 
+        pages.push(i);
     }
 
 
@@ -19,7 +16,8 @@ const Paginator = ({ totalUsersCount, pageSize, onPageChanged, currentPage, port
     let leftPortionPageNumber = (portionNumber - 1) * portionSize + 1;
     let rightPortionPageNumber = portionNumber * portionSize
 
-    return (<div>
+    return (<div className={styles.pagination}>
+
             {portionNumber > 1 &&
             <button onClick={() => {
                 setPortionNumber(portionNumber - 1)
@@ -28,11 +26,11 @@ const Paginator = ({ totalUsersCount, pageSize, onPageChanged, currentPage, port
             {pages
                 .filter(p => p >= leftPortionPageNumber && p <= rightPortionPageNumber)
                 .map((p) => {
-                    return <span className={styles.selectedPage && currentPage === p}
-                                 key={p}
-                                 onClick={(e) => {
-                                     onPageChanged(p)
-                                 }}>{p}</span>
+                    return <button className={styles.selectedPage ? 1 : currentPage === p}
+                                   key={p}
+                                   onClick={(e) => {
+                                       onPageChanged(p)
+                                   }}>{p}</button>
                 })}
 
             {portionCount > portionNumber &&
@@ -40,6 +38,7 @@ const Paginator = ({ totalUsersCount, pageSize, onPageChanged, currentPage, port
                 setPortionNumber(portionNumber + 1)
             }}>NEXT</button>
             }
+
         </div>
     )
 }

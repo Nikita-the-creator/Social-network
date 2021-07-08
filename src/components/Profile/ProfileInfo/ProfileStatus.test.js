@@ -1,6 +1,6 @@
 import React from 'react';
 
-import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
+import ProfileStatusWithHooks from "./ProfileStatus";
 import { create } from "jest-jasmine2/build/jasmine/jasmineLight";
 import {instance} from 'enzyme'
 import { node } from "enzyme";
